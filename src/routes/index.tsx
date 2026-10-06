@@ -1,16 +1,19 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useCallback, useEffect, useRef, useState } from "react";
-import bg from "@/assets/Background.png.asset.json";
-import logo from "@/assets/Logo_Raimundinho.png.asset.json";
-import mascote from "@/assets/mascote_astronauta.png.asset.json";
-import s1 from "@/assets/estrela1.png.asset.json";
-import s2 from "@/assets/estrela2.png.asset.json";
-import s3 from "@/assets/estrela3.png.asset.json";
-import s4 from "@/assets/estrela4.png.asset.json";
-import musica from "@/assets/musica.mp3.asset.json";
-import meteoro from "@/assets/meteoro.png.asset.json";
-import click from "@/assets/click.wav.asset.json";
 import diaLogo from "@/assets/dia-das-criancas.png";
+
+const bg = "/assets/Background.png";
+const logo = "/assets/Logo_Raimundinho.png";
+const mascote = "/assets/mascote_astronauta.png";
+
+const s1 = "/assets/estrela1.png";
+const s2 = "/assets/estrela2.png";
+const s3 = "/assets/estrela3.png";
+const s4 = "/assets/estrela4.png";
+
+const meteoro = "/assets/meteoro.png";
+const musica = "/assets/musica.mp3";
+const click = "/assets/click.wav";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -30,7 +33,7 @@ const W = 1080;
 const H = 1920;
 const DURATION = 30;
 const MUSIC_START = 11;
-const STARS = [s1.url, s2.url, s3.url, s4.url];
+const STARS = [s1, s2, s3, s4];
 const FRASES = [
   "Você brilha mais que todas as estrelas!",
   "Criança feliz é criança que sonha alto!",
@@ -86,7 +89,7 @@ function Game() {
   const scoreRef = useRef(0);
 
   const playClick = () => {
-    const a = new Audio(click.url);
+    const a = new Audio(click);
     a.volume = 0.9;
     a.play().catch(() => {});
   };
@@ -101,7 +104,7 @@ function Game() {
     setPops([]);
     setTimeLeft(DURATION);
     if (!musicRef.current) {
-      musicRef.current = new Audio(musica.url);
+      musicRef.current = new Audio(musica);
       musicRef.current.loop = true;
       musicRef.current.volume = 0.6;
     }
@@ -147,7 +150,7 @@ function Game() {
       }
       if (elapsed > 2 && Math.random() < dt * 0.45) {
         const size = 200 + Math.random() * 60;
-        spawn.push({ id: idRef.current++, x: Math.random() * (W - size), y: -size, size, speed: 750 + Math.random() * 300, rot: 0, spin: (Math.random() - 0.5) * 120, img: meteoro.url, meteor: true });
+        spawn.push({ id: idRef.current++, x: Math.random() * (W - size), y: -size, size, speed: 750 + Math.random() * 300, rot: 0, spin: (Math.random() - 0.5) * 120, img: meteoro, meteor: true });
       }
       setStars((prev) =>
         prev
@@ -198,27 +201,27 @@ function Game() {
           width: W,
           height: H,
           transform: `translate(-50%, -50%) scale(${scale})`,
-          backgroundImage: `url(${bg.url})`,
+          backgroundImage: `url(${bg})`,
           backgroundSize: "cover",
         }}
       >
         <SkyFx />
         {screen === "home" && (
           <div className="flex h-full flex-col items-center px-16 pt-16 font-display">
-            <img src={logo.url} alt="Super Raimundinho" className="w-[520px]" />
+            <img src={logo} alt="Super Raimundinho" className="w-[520px]" />
             <div className="relative -mt-2">
               <div className="absolute inset-0 animate-glow rounded-full glow-ring" />
               {[[-40,80,0],[900,40,0.6],[-20,420,1.2],[930,400,0.3],[440,-30,0.9],[200,500,1.5],[700,510,0.4]].map(([x,y,d],i)=>(
                 <span key={i} className="absolute animate-twinkle sparkle" style={{left:x,top:y,width:60,height:60,animationDelay:`${d}s`,animationDuration:"1.8s"}} />
               ))}
-              <img src={s3.url} alt="" className="absolute -left-6 top-10 w-24 animate-orbit" />
-              <img src={s4.url} alt="" className="absolute -right-4 bottom-16 w-20 animate-orbit" style={{animationDelay:"-1.5s"}} />
+              <img src={s3} alt="" className="absolute -left-6 top-10 w-24 animate-orbit" />
+              <img src={s4} alt="" className="absolute -right-4 bottom-16 w-20 animate-orbit" style={{animationDelay:"-1.5s"}} />
               <img src={diaLogo} alt="Dia das Crianças" width={1536} height={1024} className="relative w-[940px] animate-float" />
             </div>
             <h1 className="text-stroke -mt-6 text-center text-[120px] font-bold leading-none text-brand-yellow">
               Pegue as Estrelas!
             </h1>
-            <img src={mascote.url} alt="Mascote" className="mt-4 h-[500px] animate-bounce-slow" />
+            <img src={mascote} alt="Mascote" className="mt-4 h-[500px] animate-bounce-slow" />
             <button
               onClick={start}
               className="mt-6 animate-pulse-btn rounded-full border-[10px] border-primary-foreground bg-brand-orange px-24 py-10 text-[90px] font-bold text-primary-foreground shadow-btn active:scale-95"
@@ -232,9 +235,9 @@ function Game() {
           <>
             <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between px-12 pt-10 font-display">
               <div className="flex items-center gap-4 rounded-full bg-brand-blue/90 px-10 py-4 text-[72px] font-bold text-primary-foreground shadow-btn">
-                <img src={s2.url} alt="" className="h-20 w-20" /> {score}
+                <img src={s2} alt="" className="h-20 w-20" /> {score}
               </div>
-              <img src={logo.url} alt="Super Raimundinho" className="w-[300px]" />
+              <img src={logo} alt="Super Raimundinho" className="w-[300px]" />
               <div className="rounded-full bg-brand-orange/95 px-10 py-4 text-[72px] font-bold text-primary-foreground shadow-btn">
                 {timeLeft}s
               </div>
@@ -258,23 +261,23 @@ function Game() {
                 {p.text}
               </div>
             ))}
-            <img src={mascote.url} alt="" className="pointer-events-none absolute -bottom-10 -left-10 h-[420px] opacity-95" />
+            <img src={mascote} alt="" className="pointer-events-none absolute -bottom-10 -left-10 h-[420px] opacity-95" />
           </>
         )}
 
         {screen === "end" && (
           <div className="flex h-full flex-col items-center justify-center px-16 text-center font-display">
-            <img src={logo.url} alt="Super Raimundinho" className="w-[600px]" />
+            <img src={logo} alt="Super Raimundinho" className="w-[600px]" />
             <h1 className="text-stroke mt-10 animate-pop-in text-[170px] font-bold leading-none text-brand-yellow">
               Parabéns!
             </h1>
             <div className="mt-10 flex items-center gap-6 rounded-full bg-brand-blue/90 px-14 py-6 text-[90px] font-bold text-primary-foreground shadow-btn">
-              <img src={s1.url} alt="" className="h-28 w-28" /> {score} estrelas
+              <img src={s1} alt="" className="h-28 w-28" /> {score} estrelas
             </div>
             <p className="text-stroke-sm mt-12 max-w-[900px] text-[80px] font-bold leading-tight text-primary-foreground">
               {frase}
             </p>
-            <img src={mascote.url} alt="Mascote" className="mt-10 h-[600px] animate-bounce-slow" />
+            <img src={mascote} alt="Mascote" className="mt-10 h-[600px] animate-bounce-slow" />
           </div>
         )}
       </div>
