@@ -224,7 +224,7 @@ function Game() {
             <img src={mascote} alt="Mascote" className="mt-4 h-[500px] animate-bounce-slow" />
             <button
               onClick={start}
-              className="mt-6 animate-pulse-btn rounded-full border-[10px] border-primary-foreground bg-brand-orange px-24 py-10 text-[90px] font-bold text-primary-foreground shadow-btn active:scale-95"
+              className="mt-2 animate-pulse-btn rounded-full border-[8px] border-primary-foreground bg-brand-orange px-20 py-8 text-[76px] font-bold text-primary-foreground shadow-btn active:scale-95"
             >
               Iniciar Jogo
             </button>
